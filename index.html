@@ -1,6 +1,27 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Desde el 7 de agosto de 2026: 524 nuevas solicitudes mineras sobre 343.000 hectáreas y 55 títulos otorgados. Mapa interactivo de las 14.346 áreas mineras, los 28 minerales estratégicos y las figuras territoriales en riesgo, municipio por municipio.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="RADAR AGRARIO · Red por la Defensa de la Reforma Agraria">
+<meta property="og:title" content="Subsuelo en disputa: minería estratégica en Colombia">
+<meta property="og:description" content="Desde el 7 de agosto de 2026: 524 nuevas solicitudes mineras sobre 343.000 hectáreas y 55 títulos otorgados. Mapa interactivo de las 14.346 áreas mineras, los 28 minerales estratégicos y las figuras territoriales en riesgo, municipio por municipio.">
+<meta property="og:image" content="https://clo-hub.github.io/La-Soberan-a-del-subsuelo-en-disputa/preview.jpg">
+<meta property="og:image:secure_url" content="https://clo-hub.github.io/La-Soberan-a-del-subsuelo-en-disputa/preview.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Subsuelo en disputa: 524 nuevas solicitudes mineras desde el 7 de agosto de 2026">
+<meta property="og:url" content="https://clo-hub.github.io/La-Soberan-a-del-subsuelo-en-disputa/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Subsuelo en disputa: minería estratégica en Colombia">
+<meta name="twitter:description" content="Desde el 7 de agosto de 2026: 524 nuevas solicitudes mineras sobre 343.000 hectáreas y 55 títulos otorgados. Mapa interactivo de las 14.346 áreas mineras, los 28 minerales estratégicos y las figuras territoriales en riesgo, municipio por municipio.">
+<meta name="twitter:image" content="https://clo-hub.github.io/La-Soberan-a-del-subsuelo-en-disputa/preview.jpg">
+<link rel="canonical" href="https://clo-hub.github.io/La-Soberan-a-del-subsuelo-en-disputa/">
 <title>Subsuelo en disputa</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
 <style>
@@ -185,6 +206,8 @@ footer.red{background:var(--dk);color:#E8E3D2;font-size:12px;padding-block:8px;p
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
+</head>
+<body>
 <div class="app">
 <header>
  <small>Red por la Defensa de la Reforma Agraria · Boletín agrario · Elaborado por RADAR AGRARIO</small>
@@ -766,7 +789,7 @@ document.getElementById('fRank').innerHTML=fuentes(['anm','res','ruv','cnmh','da
 document.getElementById('fCmp').innerHTML=fuentes(['anm','res','ruv','cnmh','dane']);
 
 // ---------- descargas: ficha en PDF y registros en CSV (capacidad "downloads")
-let DLS=null;(async()=>{try{DLS=await window.claude?.use?.('downloads')}catch(e){DLS=null}document.querySelectorAll('[data-dl]').forEach(b=>b.hidden=!DLS||(b.dataset.dl==='csv'&&!REC.length))})();
+let DLS=null;(async()=>{try{DLS=(await window.claude?.use?.('downloads'))||{save:async f=>{const ty=/\.pdf$/i.test(f.filename)?'application/pdf':'text/csv;charset=utf-8';const b=f.data instanceof Blob?f.data:new Blob([f.data],{type:ty});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=f.filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),5000);return{status:'saved'}}}}catch(e){DLS=null}document.querySelectorAll('[data-dl]').forEach(b=>b.hidden=!DLS||(b.dataset.dl==='csv'&&!REC.length))})();
 const loadScript=src=>new Promise((res,rej)=>{if(document.querySelector(`script[src="${src}"]`))return res();const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=()=>rej(new Error('No se pudo cargar '+src));document.head.appendChild(s)});
 async function libsPDF(){await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js')}
 const STRAT=(1<<28)-1;  // los 28 grupos del proyecto de resolución (bits 0–27); el bit 28 es "demás concesibles"
@@ -882,4 +905,5 @@ route();
 let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{if(built){size();reproject()}},200)});
 </script>
 
-</body></html>
+</body>
+</html>
